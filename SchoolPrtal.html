@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>School Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #fff;
+    }
+    #password-screen, #main {
+        display: none;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .container {
+        text-align: center;
+        width: 90%;
+        max-width: 500px;
+    }
+    input {
+        width: 80%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 6px;
+        border: none;
+        margin-top: 10px;
+        outline: none;
+    }
+    button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 6px;
+        border: none;
+        background: #4a90e2;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #357abd;
+    }
+    .list {
+        width: 90%;
+        max-width: 700px;
+        margin: auto;
+        padding-top: 40px;
+    }
+    .item {
+        background: #1a1a1a;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 20px;
+        border-left: 4px solid #4a90e2;
+        transition: 0.3s;
+    }
+    .item:hover {
+        background: #222;
+        transform: translateX(5px);
+    }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="password-screen" style="display:flex;">
+    <div class="container">
+        <h1>School Portal Login</h1>
+        <p>Enter password to continue.</p>
+
+        <input type="password" id="pw" placeholder="Password">
+        <button onclick="checkPass()">Enter</button>
+    </div>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="main">
+    <div class="list">
+        <div class="item" onclick="openClassroom()">Google Classroom</div>
+        <div class="item">My Math</div>
+        <div class="item">School Library</div>
+        <div class="item">PowerSchool</div>
+        <div class="item">Email</div>
+        <div class="item">Clubs & Activities</div>
+    </div>
+</div>
+
+<script>
+const PASSWORD = "combustus";  // you can change this
+
+function checkPass() {
+    let entered = document.getElementById("pw").value;
+    if (entered === PASSWORD) {
+        document.getElementById("password-screen").style.display = "none";
+        document.getElementById("main").style.display = "block";
+    } else {
+        alert("Incorrect password.");
+    }
+}
+
+function openClassroom() {
+    // Load VoidOS.html from GitHub repo
+    const file = "VoidOS.html?t=" + Date.now();
+
+    let win = window.open("about:blank", "_blank");
+    if (!win) {
+        alert("Popup blocked. Allow popups and try again.");
+        return;
+    }
+
+    fetch(file)
+        .then(r => r.text())
+        .then(html => {
+            win.document.open();
+            win.document.write(html);
+            win.document.close();
+        })
+        .catch(e => console.error(e));
+}
+</script>
+
+</body>
+</html>
